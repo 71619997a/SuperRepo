@@ -34,7 +34,7 @@ public class Rational implements Comparable{
 	public String toString(){
 		return ""+numerator+"/"+denominator;
 	}
-	public double floatValue(){
+	public double value(){
 		return numerator*(1.0)/denominator;
 		// division by a floating point # converts the fraction into a float
 	}
@@ -96,23 +96,23 @@ public class Rational implements Comparable{
 		numerator /= gcd;
 		denominator /= gcd;
 	}
-	public int compareTo(Object o){
-		if (o instanceof Rational) {
-			Rational q = (Rational)o;
-			if (this.numerator * q.denominator > this.denominator * q.numerator){
-				return 1;
-			}
-			else if (this.numerator * q.denominator < this.denominator * q.numerator){
-				return -1;
-			}
-			else{
-				return 0;
-			}
-		}
-		else {
-			return -2;
-		}
+    public int compareTo( Object other ) {
+	if (other == null) {
+	    throw new NullPointerException("Cannot compareTo with null object");
 	}
+	if (!(other instanceof Comparable)) {
+	    throw new ClassCastException("Incorrect type of argument for compareTo");
+	}
+	
+	Comparable o = (Comparable)other;
+	if (value() > o.value()) {
+	    return 1;
+	} else if (value() < o.value()) {
+	    return -1;
+	} else {
+	    return 0;
+	}
+    }
 
 	public static void main(String[] args){
 		Rational george = new Rational();
@@ -129,9 +129,9 @@ public class Rational implements Comparable{
 		System.out.println(tigger);
 		tigger.reduce();
 		System.out.println(tigger);
-		System.out.println(george.floatValue());
-		System.out.println(marley.floatValue());
-		System.out.println(tigger.floatValue());
+		System.out.println(george.value());
+		System.out.println(marley.value());
+		System.out.println(tigger.value());
 		george.multiply(marley);
 		tigger.multiply(tigger);
 		System.out.println(george);
@@ -144,6 +144,18 @@ public class Rational implements Comparable{
 		System.out.println(bigger.compareTo(smaller));  //1
 		System.out.println(smaller.compareTo(bigger)); //-1
 		System.out.println(bigger.compareTo(bigger)); //0
-		System.out.println(smaller.compareTo(weirder)); //-2
+		try {
+		    System.out.println(smaller.compareTo(weirder));
+		} catch (Exception e) {
+		    System.out.println(e);
+		}
+		try{
+		    System.out.println(smaller.compareTo(null));
+		}
+		catch(Exception e) {
+		    System.out.println(e);
+		}
+		System.out.println(bigger.compareTo(new Binary("1001")));
+		System.out.println(bigger.compareTo(new Hexadecimal("0")));
 	}
 }

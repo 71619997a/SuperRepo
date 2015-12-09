@@ -15,7 +15,7 @@ public class Binary implements Comparable{
 	value = binToDec(binRep);
     }
     public String toString() { 
-	return decToBin(value);
+	return "0b"+decToBin(value);
     }
 	
     public boolean equals(Object o) {
@@ -25,13 +25,22 @@ public class Binary implements Comparable{
 	}
 	else return false;
     }
-    public int compareTo(Object o) {
-	if(o instanceof Binary) {
-	    Binary b = (Binary)o;
-	    return value - b.value;
+    public double value() { return value; }
+    public int compareTo( Object other ) {
+	if (other == null) {
+	    throw new NullPointerException("Cannot compareTo with null object");
 	}
-	else {
-	    throw new ClassCastException(); //specified in java api
+	if (!(other instanceof Comparable)) {
+	    throw new ClassCastException("Incorrect type of argument for compareTo");
+	}
+	
+	Comparable o = (Comparable)other;
+	if (value() > o.value()) {
+	    return 1;
+	} else if (value() < o.value()) {
+	    return -1;
+	} else {
+	    return 0;
 	}
     }
     public static int binToDec(String binary) {
@@ -92,6 +101,12 @@ public class Binary implements Comparable{
 	System.out.println(bin2.compareTo(bun2)); //0
 	System.out.println(bin2.compareTo(bin1)); //positive
 	System.out.println(bin2.compareTo(bin3)); //negative
-	//System.out.println(bin2.compareTo(x)); //error b/c string is not comparable
+	try {System.out.println(bin2.compareTo(x)); }
+	catch (Exception e) {System.out.println(e);}
+	try {System.out.println(bin2.compareTo(null));}
+	catch (Exception e) {System.out.println(e);}
+	System.out.println(bin2.compareTo(new Hexadecimal("9")));
+	System.out.println(bin2.compareTo(new Rational(100,9)));
+	
     }
 }

@@ -42,11 +42,10 @@ public class Hexadecimal implements Comparable{
 	_decNum = hexToDec(s);
 	_hexNum = s;
     }
-
     /*=====================================
       Accessors and Mutators
       =====================================*/
-    public int getValue() {
+    public double value() {
 	return _decNum;
     }
 
@@ -56,7 +55,7 @@ public class Hexadecimal implements Comparable{
       post: returns String of 1's and 0's representing value of this Object
       =====================================*/
     public String toString() { 
-	return _hexNum;
+	return "0x"+_hexNum;
     }
 
     /*=====================================
@@ -196,12 +195,17 @@ public class Hexadecimal implements Comparable{
       negative integer if this<input, positive integer otherwise
       =============================================*/
     public int compareTo( Object other ) {
-	if (!(other instanceof Hexadecimal)) {
-	    throw new ClassCastException("Incorrect type of parameter");
+	if (other == null) {
+	    throw new NullPointerException("Cannot compareTo with null object");
 	}
-	if (_decNum > ((Hexadecimal)other).getValue()) {
+	if (!(other instanceof Comparable)) {
+	    throw new ClassCastException("Incorrect type of argument for compareTo");
+	}
+	
+	Comparable o = (Comparable)other;
+	if (value() > o.value()) {
 	    return 1;
-	} else if (_decNum < ((Hexadecimal)other).getValue()) {
+	} else if (value() < o.value()) {
 	    return -1;
 	} else {
 	    return 0;
@@ -254,6 +258,13 @@ public class Hexadecimal implements Comparable{
 	} catch (Exception e) {
 	    System.out.println(e);
 	}
+	Rational q = new Rational(5,6);
+	System.out.println(b1.compareTo(q));
+	Binary b = new Binary( "1010" );
+	System.out.println(b1.compareTo(b));
+	try {
+	    System.out.println(b1.compareTo(null));
+	} catch(Exception e) {System.out.println(e);}
 	/*=========================================
 	  =========================================*/
     }//end main()
