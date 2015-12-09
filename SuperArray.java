@@ -81,7 +81,7 @@ public class SuperArray{
 	}
 
 	//adds item after last item
-	public void add(int newVal) {
+	public void add(Comparable newVal) {
 		add(_lastPos+1, newVal);
 	}
 	
@@ -104,7 +104,6 @@ public class SuperArray{
 		for(int i = index; i < _lastPos;i++) {
 			_data[i] = _data[i+1];
 		}
-		_data[_lastPos] = 0; //make sure all unused data is 0 to make adding stuff easier
 		_lastPos -= 1;
 		_size -= 1;
 	}
@@ -127,19 +126,11 @@ public class SuperArray{
 		System.out.println(a.get(7));
 		System.out.println(a);
 		System.out.println(a._lastPos);
-		a._data = new Integer[]{1,2,3,4,5,6,7,8};
-		a._lastPos = 4;
-		a._size = 5;
+		a.add(new Binary("10010"));
 		System.out.println(a);
-		a.remove(2);
+		a.add(new Hexadecimal("7F"));
 		System.out.println(a);
-		a.remove(3); //test for removing last element
-		System.out.println(a);
-		a.add(1,3);
-		System.out.println(a);
-		a.add(4,5);
-		System.out.println(a);
-		a.add(6);
+		a.add(1,new Rational(5,6));
 		System.out.println(a);
 		System.out.println(a.size());
 	}//end main
