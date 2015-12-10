@@ -1,8 +1,8 @@
 /*****************************
-Team Something: Sebastian Dittgen, Gabriel Marks
+Gabriel Marks
 APCS1 pd10
-HW42 -- Array of Titanium
-2015-12-04
+HW45 -- Come Together
+2015-12-10
 
 * class SuperArray --  A wrapper class for an array. 
 * Maintains functionality:
